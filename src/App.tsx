@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HomePage } from './pages';
+import { AppRouter } from './templates/AppRouter';
 
-const App = () => <HomePage />;
+const App = () => <AppRouter />;
 export default App;

@@ -25,6 +25,7 @@ const useStyles = makeStyles({
         maxWidth: 348,
         minHeight: 384,
         borderRadius: 8,
+        backgroundColor: 'yellow',
     },
     media: {
         position: 'relative',
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
     },
     textContainer: {
         padding: 24,
+        backgroundColor: 'green',
     },
     recipeCellContainer: {
         position: 'absolute',
@@ -45,7 +47,7 @@ const useStyles = makeStyles({
         },
     },
     test: {
-        justifyContent: 'flex-start',
+        backgroundColor: 'red',
     },
 });
 

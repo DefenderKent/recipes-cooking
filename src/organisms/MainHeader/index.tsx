@@ -24,6 +24,7 @@ const useStyles = makeStyles({
         paddingTop: 128,
         marginRight: 20,
     },
+
     colorIconButton: {
         color: Colors.shade20,
     },
