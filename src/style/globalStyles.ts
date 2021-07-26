@@ -47,9 +47,14 @@ h5{
     font-size: 9px;
     line-height: 11px;
 }
+body{
+    font-size: 24px;
+    line-height:  28px;
+}
+
 `;
 export enum Difficulty {
-    Easy,
-    Medium,
-    Hard,
+    easy,
+    medium,
+    hard,
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CSS from 'csstype';
+import { Colors } from '../../style/globalStyles';
 
 interface TextType {
     color?: CSS.Property.Color;
@@ -13,6 +14,7 @@ interface TextType {
 }
 
 export const StyledText = styled.h6<TextType>`
+    color: ${({ color }) => color || Colors.base0};
     font-size: ${({ fontSize }) => fontSize || 16}px;
     font-style: ${({ fontStyle }) => fontStyle || 'normal'};
     font-weight: ${({ fontWeight }) => fontWeight || '400'};

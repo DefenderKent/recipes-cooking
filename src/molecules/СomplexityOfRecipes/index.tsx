@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import CSS from 'csstype';
 
 import { Hat } from '../../assets/Hat';
-import { Text } from '../../atoms/Text';
 import { Difficulty } from '../../style/globalStyles';
 import { View } from '../../templates';
 import { getDifficulty } from '../../utils/getDifficulty';
+import { Typography } from '@material-ui/core';
 
 interface СomplexityRecipesPros {
     difficulty: keyof typeof Difficulty;
@@ -21,7 +21,9 @@ export const СomplexityOfRecipes: React.FC<СomplexityRecipesPros> = (props) =>
         <СomplexityRecipesStyled {...props}>
             <View>
                 <Hat color={getDifficulty(props.difficulty).color} />
-                <Text style={{ marginLeft: '9px' }}>{getDifficulty(props.difficulty).title}</Text>
+                <Typography style={{ marginLeft: '9px' }} variant="body1" component="body">
+                    {getDifficulty(props.difficulty).title}
+                </Typography>
             </View>
         </СomplexityRecipesStyled>
     );

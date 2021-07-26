@@ -36,11 +36,11 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-export const SearchInput: React.FC<SearchInputProps> = () => {
+export const SearchInput: React.FC<SearchInputProps> = (props) => {
     const classes = useStyles();
 
     return (
-        <Paper component="form" className={classes.root}>
+        <Paper component="form" className={`${classes.root} ${props.className}`}>
             <IconButton
                 type="submit"
                 className={classes.iconButton}

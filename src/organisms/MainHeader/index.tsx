@@ -1,120 +1,78 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { View } from '../../templates';
+import { Text } from '../../atoms';
+import { Typography } from '@material-ui/core';
+import { SearchInput } from '../../molecules';
+import IconButton from '@material-ui/core/IconButton';
 
-interface CardRecipeProps {
-    title?: string;
+import { Colors } from '../../style/globalStyles';
+import Image from '../../assets/image.png';
+import FilterIcon from '@material-ui/icons/FilterList';
+
+interface MainHeaderProps {
+    className?: string;
 }
 // type SelfPosition = "center" | "end" | "flex-end" | "flex-start" | "self-end" | "self-start" | "start";
 const useStyles = makeStyles({
     root: {
-        '#page': {
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-        },
-        '& #toolbar': {
-            position: 'fixed',
-            display: 'block',
-            width: '100%',
-            zIndex: 10,
-            boxSizing: 'border-box',
-            MozBoxSizing: 'border-box',
-            backgroundColor: '#1BBBFB',
-            padding: '0 16',
-        },
-        '#actions': {
-            position: 'relative',
-            display: 'flex',
-            flex: 1,
-            alignItems: 'center',
-            flexDirection: 'row',
-            height: 64,
-            top: 0,
-            left: 0,
-            right: 0,
-            padding: 7,
-            margin: 2,
-            verticalAlign: 'middle',
-        },
+        justifyContent: 'center',
+        height: 292,
+        width: 'max-content',
     },
-    spacer: {
+    leftColumn: {
+        paddingTop: 128,
+        marginRight: 20,
+    },
+    colorIconButton: {
+        color: Colors.shade20,
+    },
+    colorIcon: {
+        color: Colors.base0,
+    },
+    img: {
+        backgroundImage: `url(${Image})`,
+        backgroundPosition: 'left',
+        backgroundSize: 'auto',
+        backgroundRepeat: 'no-repeat',
+        width: '100vw',
         display: 'flex',
-        flex: 1,
-        height: '100%',
-        maxWidth: 348,
-        minHeight: 384,
-        borderRadius: 8,
+        justifyContent: 'space-between',
     },
-    card: {
-        position: 'relative',
-        height: 196,
+    inputContainer: {
+        paddingTop: 32,
     },
-    icon: {},
-    parentDiv: {
-        '& #childId': {
-            propertyName: 'something something',
-        },
-    },
-    '#page': {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-    },
-    '#actions': {
-        position: 'relative',
-        display: 'flex',
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'row',
-        height: 64,
-        top: 0,
-        left: 0,
-        right: 0,
-        padding: 7,
-        margin: 2,
-        verticalAlign: 'middle',
-    },
-    '& #toolbar': {
-        position: 'fixed',
-        display: 'block',
-        width: '100%',
-        zIndex: 10,
-        boxSizing: 'border-box',
-        MozBoxSizing: 'border-box',
-        backgroundColor: '#1BBBFB',
-        padding: '0 16',
-    },
-    '#title': {
-        padding: 21,
-        position: 'absolute',
-        bottom: 0,
-        color: '#fff',
+    input: {
+        marginRight: 16,
     },
 });
 
-export const MainHeader: React.FC<CardRecipeProps> = ({}) => {
+export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
     const classes = useStyles();
 
     return (
-        <div id="page" className={classes.root}>
-            <div id="toolbar" data-0="height:192px" data-128="height: 64px">
-                <div id="actions">
-                    <div className={classes.spacer}></div>
-
-                    <div className={classes.icon}></div>
-                </div>
-                <div
-                    id="title"
-                    data-0="font-size: 48px; padding: 0 0 24px 12px;"
-                    data-128="font-size: 18px; padding: 0 0 21px 60px;"
-                >
-                    Page Title
-                </div>
-            </div>
-        </div>
+        <View className={`${classes.root} ${className}`}>
+            <View className={classes.leftColumn}>
+                <View direction="column">
+                    <Typography variant="inherit" component="h1">
+                        Air Recipes
+                    </Typography>
+                    <Text color={Colors.shade50}>Best Recipes for Best People</Text>
+                    <View className={classes.inputContainer}>
+                        <SearchInput className={classes.input} />
+                        <IconButton
+                            className={classes.colorIconButton}
+                            aria-label="delete2"
+                            centerRipple={false}
+                            onClick={() => console.log('aasas')}
+                            color="inherit"
+                        >
+                            <FilterIcon className={classes.colorIcon} />
+                        </IconButton>
+                    </View>
+                </View>
+            </View>
+            <View className={classes.img}></View>
+        </View>
     );
 };
