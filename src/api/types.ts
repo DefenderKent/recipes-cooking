@@ -23,7 +23,7 @@ export interface RootObject {
     recipe: Recipe;
 }
 
-export type RecipeShort = Omit<Recipe, 'cookTime' | 'difficulty' | 'ingredients' | 'instructions'>;
+export type RecipeShort = Omit<Recipe, 'difficulty' | 'ingredients' | 'instructions'>;
 export interface RecipeShortObject {
     recipes: RecipeShort[];
 }

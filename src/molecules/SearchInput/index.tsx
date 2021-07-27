@@ -8,6 +8,7 @@ import { Colors } from '../../style/globalStyles';
 
 interface SearchInputProps {
     className?: string;
+    search: (query: string) => void;
 }
 
 const useStyles = makeStyles(() =>
@@ -41,17 +42,16 @@ export const SearchInput: React.FC<SearchInputProps> = (props) => {
 
     return (
         <Paper component="form" className={`${classes.root} ${props.className}`}>
-            <IconButton
-                type="submit"
-                className={classes.iconButton}
-                aria-label="search"
-                onSubmit={(data) => {
-                    console.log('data', data);
-                }}
-            >
+            <IconButton type="button" className={classes.iconButton} aria-label="search">
                 <SearchIcon />
             </IconButton>
-            <InputBase type="search" className={classes.input} placeholder="Search" />
+            <InputBase
+                type="search"
+                className={classes.input}
+                placeholder="Search"
+                onChange={(text) => props.search(text.target.value)}
+                inputProps={{ 'aria-label': 'search' }}
+            />
         </Paper>
     );
 };
