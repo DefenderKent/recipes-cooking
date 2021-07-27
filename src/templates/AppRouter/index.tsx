@@ -6,7 +6,7 @@ import { mainRoutes } from '../../navigation/routes';
 import { MainHeader } from '../../organisms/MainHeader';
 
 export const StyledAppRouter = styled.div`
-    max-width: 1084px;
+    max-width: 1110px;
     margin: 0 auto;
     padding: 0 15px;
 `;

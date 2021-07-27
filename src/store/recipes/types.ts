@@ -1,4 +1,12 @@
+import { Recipe, RecipeShort } from '../../api/types';
+
 export type RecipesState = {
-    counter: number;
-    isLoading: boolean;
+    allItems: {
+        items: RecipeShort[];
+        isLoading: boolean;
+    };
+    selectedItem: {
+        item: Recipe;
+        isLoading: boolean;
+    };
 };
