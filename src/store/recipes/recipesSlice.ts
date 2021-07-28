@@ -16,6 +16,7 @@ const initialState: RecipesState = {
     allItems: {
         items: [],
         filterItems: [],
+        filters: [],
         isLoading: false,
     },
     selectedItem: {
@@ -41,14 +42,15 @@ const recipesSlice = createSlice({
     initialState,
     reducers: {
         filterRecipe: (state, action) => {
-            if (action.payload.length === 0) {
+            console.log('filterRecipe:', action.payload);
+
+            if (action.payload.length === 1) {
                 state.allItems.filterItems = state.allItems.items;
             }
-            for (let index = 0; index < action.payload.length; index++) {
-                state.allItems.filterItems = state.allItems.filterItems.filter(
-                    (item) => item.cuisine.id !== action.payload[index],
-                );
-            }
+
+            state.allItems.filterItems = state.allItems.items.filter((item) =>
+                action.payload.includes(item.cuisine.id),
+            );
         },
         searchRecipe: (state, action) => {
             if (action.payload === '') {
@@ -65,9 +67,12 @@ const recipesSlice = createSlice({
                 state.allItems.isLoading = true;
             })
             .addCase(receiveRecipes.fulfilled, (state, action) => {
-                state.allItems.isLoading = false;
                 state.allItems.filterItems = action.payload;
                 state.allItems.items = action.payload;
+                (state.allItems.filters = action.payload
+                    .map((item) => item.cuisine)
+                    .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)),
+                    (state.allItems.isLoading = false);
             })
             .addCase(receiveRecipe.pending, (state) => {
                 state.selectedItem.isLoading = true;

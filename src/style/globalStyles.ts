@@ -23,6 +23,7 @@ h1, h2, h3 {
     color: ${Colors.base0};
     font-family: 'Khula', sans-serif;
     font-weight: 800;
+    letter-spacing: -1px;
 }
  h1{
    

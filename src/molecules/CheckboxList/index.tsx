@@ -1,50 +1,60 @@
 import React, { useState } from 'react';
-
 import CSS from 'csstype';
-import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
+import { Checkbox, createStyles, FormControlLabel, FormGroup, makeStyles } from '@material-ui/core';
+
 import { useAppSelector } from '../../store/hooks';
-import { recipes, filterRecipe } from '../../store/recipes/recipesSlice';
-import { useDispatch } from 'react-redux';
+import { recipes } from '../../store/recipes/recipesSlice';
 
 interface CheckboxListProps {
-    handleFilters: (checked: any[]) => void;
+    handleFilters: (checked: number[]) => void;
     style?: CSS.Properties;
     className?: string;
 }
 
+const useStyles = makeStyles(() =>
+    createStyles({
+        formContainer: {
+            justifyContent: 'space-between',
+        },
+    }),
+);
 export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters }) => {
-    handleFilters;
-    const dispatch = useDispatch();
+    const classes = useStyles();
     const recipe = useAppSelector(recipes);
-    const Itdsa = recipe.allItems.items.map((items) => items.cuisine.id);
-    const [filters, setFilters] = useState(Itdsa as any[]);
+    const cuisineIDs = recipe.allItems.filters.map((cuisine) => cuisine.id);
+    const [checked, setChecked] = useState(cuisineIDs as number[]);
 
-    console.log('filters', filters);
+    const handleToggle = (value: number) => {
+        const currentIndex = checked.indexOf(value);
+        console.log('currentIndex', currentIndex);
+        const newChecked = [...checked];
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+        setChecked(newChecked);
+        handleFilters(newChecked);
+    };
 
     return (
         <FormGroup>
-            {recipe.allItems.items.map((item) => (
+            {recipe.allItems.filters.map((item) => (
                 <FormControlLabel
                     key={item.id}
+                    labelPlacement="start"
+                    className={classes.formContainer}
                     control={
                         <Checkbox
-                            checked={filters.includes(item.cuisine.id)}
+                            color="default"
+                            checked={checked.indexOf(item.id) !== -1 && true}
                             onChange={() => {
-                                const checkedTest = filters.includes(item.cuisine.id);
-
-                                setFilters((prev) => {
-                                    if (checkedTest) {
-                                        dispatch(filterRecipe(prev.filter((sc) => sc !== item.cuisine.id)));
-                                        return prev.filter((sc) => sc !== item.cuisine.id);
-                                    }
-                                    dispatch(filterRecipe([...prev, item.cuisine.id]));
-                                    return [...prev, item.cuisine.id];
-                                });
+                                handleToggle(item.id);
                             }}
                             name="checkedA"
                         />
                     }
-                    label={item.cuisine.title}
+                    label={item.title}
                 />
             ))}
         </FormGroup>
