@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import CSS from 'csstype';
 import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
 import { useAppSelector } from '../../store/hooks';
-import { recipes } from '../../store/recipes/recipesSlice';
+import { recipes, filterRecipe } from '../../store/recipes/recipesSlice';
+import { useDispatch } from 'react-redux';
 
 interface CheckboxListProps {
     handleFilters: (checked: any[]) => void;
@@ -13,12 +14,12 @@ interface CheckboxListProps {
 
 export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters }) => {
     handleFilters;
+    const dispatch = useDispatch();
     const recipe = useAppSelector(recipes);
     const Itdsa = recipe.allItems.items.map((items) => items.cuisine.id);
     const [filters, setFilters] = useState(Itdsa as any[]);
-    const [filters2, setFilters2] = useState(recipe.allItems.items as any[]);
 
-    console.log('filters2', filters2);
+    console.log('filters', filters);
 
     return (
         <FormGroup>
@@ -30,14 +31,15 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters }) => 
                             checked={filters.includes(item.cuisine.id)}
                             onChange={() => {
                                 const checkedTest = filters.includes(item.cuisine.id);
-                                console.log('checkedTest:', checkedTest);
-                                const data = filters2.filter((test) => test.cuisine.id !== item.cuisine.id);
-                                setFilters2(data);
-                                setFilters((prev) =>
-                                    checkedTest
-                                        ? prev.filter((sc) => sc !== item.cuisine.id)
-                                        : [...prev, item.cuisine.id],
-                                );
+
+                                setFilters((prev) => {
+                                    if (checkedTest) {
+                                        dispatch(filterRecipe(prev.filter((sc) => sc !== item.cuisine.id)));
+                                        return prev.filter((sc) => sc !== item.cuisine.id);
+                                    }
+                                    dispatch(filterRecipe([...prev, item.cuisine.id]));
+                                    return [...prev, item.cuisine.id];
+                                });
                             }}
                             name="checkedA"
                         />

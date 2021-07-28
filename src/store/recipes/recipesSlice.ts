@@ -40,6 +40,16 @@ const recipesSlice = createSlice({
     name: 'recipes',
     initialState,
     reducers: {
+        filterRecipe: (state, action) => {
+            if (action.payload.length === 0) {
+                state.allItems.filterItems = state.allItems.items;
+            }
+            for (let index = 0; index < action.payload.length; index++) {
+                state.allItems.filterItems = state.allItems.filterItems.filter(
+                    (item) => item.cuisine.id !== action.payload[index],
+                );
+            }
+        },
         searchRecipe: (state, action) => {
             if (action.payload === '') {
                 state.allItems.filterItems = state.allItems.items;
@@ -69,7 +79,7 @@ const recipesSlice = createSlice({
             });
     },
 });
-export const { searchRecipe } = recipesSlice.actions;
+export const { searchRecipe, filterRecipe } = recipesSlice.actions;
 export const recipes = (state: RootState) => state.recipes;
 
 export default recipesSlice.reducer;
