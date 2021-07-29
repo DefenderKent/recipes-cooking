@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CSS from 'csstype';
 import { Checkbox, createStyles, FormControlLabel, FormGroup, makeStyles } from '@material-ui/core';
 
@@ -23,6 +23,9 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters, filte
     const classes = useStyles();
     const recipe = useAppSelector(recipes);
     const [checked, setChecked] = useState<number[]>(filters);
+    useEffect(() => {
+        setChecked(filters);
+    }, [filters]);
 
     const handleToggle = (value: number) => {
         const currentIndex = checked.indexOf(value);
@@ -35,7 +38,6 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters, filte
         setChecked(newChecked);
         handleFilters(newChecked);
     };
-
     return (
         <FormGroup>
             {recipe.allItems.filters.map((item) => (

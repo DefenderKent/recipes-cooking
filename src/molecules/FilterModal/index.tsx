@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useDispatch } from 'react-redux';
@@ -51,10 +51,12 @@ type Filters = {
 };
 export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, filters, range }) => {
     const classes = useStyles();
-
     const dispatch = useDispatch();
-
     const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters });
+
+    useEffect(() => {
+        setStash({ range, filters });
+    }, [range, filters]);
 
     const handleFilters = (filters: number[]) => {
         setStash({ ...stash, filters });
@@ -71,7 +73,6 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, f
     const onClear = () => {
         setStash({ range: [], filters: [] });
     };
-
     return (
         <Modal
             open={isVisible}
@@ -84,7 +85,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, f
                     Filter
                 </Typography>
 
-                <CheckboxList handleFilters={(filters) => handleFilters(filters)} filters={filters} />
+                <CheckboxList handleFilters={(filters) => handleFilters(filters)} filters={stash.filters} />
                 <View display="block" className={classes.sliderContainer}>
                     <RangeSlider handleSlider={(range) => handleSlider(range)} />
                 </View>
