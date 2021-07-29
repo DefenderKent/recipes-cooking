@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Colors } from '../../style/globalStyles';
+import { useAppSelector } from '../../store/hooks';
+import { recipes } from '../../store/recipes/recipesSlice';
+
+interface RangeSliderProps {
+    handleSlider: (range: number[]) => void;
+}
 
 const useStyles = makeStyles({
     root: {},
@@ -15,14 +21,15 @@ function valuetext(value: number) {
     return `${value}`;
 }
 
-export const RangeSlider = () => {
+export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider }) => {
     const classes = useStyles();
-    const [value, setValue] = React.useState<number[]>([100, 1000]);
+    const recipe = useAppSelector(recipes);
+    const [value, setValue] = React.useState<number[]>(recipe.allItems.calorieRange);
 
     const handleChange = (event: any, newValue: number | number[]) => {
         setValue(newValue as number[]);
+        handleSlider(newValue as number[]);
     };
-    console.log('value', value);
 
     return (
         <div className={classes.root}>

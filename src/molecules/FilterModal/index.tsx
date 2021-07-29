@@ -64,9 +64,15 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle })
     // const Itdsa = recipe.allItems.items.map((items) => items.cuisine.id);
     // const [filters, setFilters] = useState([1, 2, 3, 4, 5, 6]);
     // console.log('recipes', recipe.allItems.filterItems);
+
     const handleFilters = (filtes: any[]) => {
         console.log('filtes-----', filtes);
-        dispatch(filterRecipe(filtes));
+        dispatch(filterRecipe({ filtes: filtes }));
+    };
+    //сделать общее хранилище и отправлять доним объектом
+    const handleSlider = (range: number[]) => {
+        console.log('range-----', { range: range });
+        dispatch(filterRecipe({ range: range }));
     };
     return (
         <Modal
@@ -82,7 +88,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle })
 
                 <CheckboxList handleFilters={(filtes) => handleFilters(filtes)} />
                 <View display="block" className={classes.sliderContainer}>
-                    <RangeSlider />
+                    <RangeSlider handleSlider={(range) => handleSlider(range)} />
                 </View>
 
                 <View className={classes.buttonContainer} justify="space-between">

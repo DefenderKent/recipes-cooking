@@ -5,6 +5,7 @@ export type RecipesState = {
         items: RecipeShort[];
         filterItems: RecipeShort[];
         filters: Cuisine[];
+        calorieRange: number[];
         isLoading: boolean;
     };
     selectedItem: {

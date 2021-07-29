@@ -17,6 +17,7 @@ const initialState: RecipesState = {
         items: [],
         filterItems: [],
         filters: [],
+        calorieRange: [],
         isLoading: false,
     },
     selectedItem: {
@@ -44,12 +45,12 @@ const recipesSlice = createSlice({
         filterRecipe: (state, action) => {
             console.log('filterRecipe:', action.payload);
 
-            if (action.payload.length === 1) {
+            if (action.payload.filtes.length === 1) {
                 state.allItems.filterItems = state.allItems.items;
             }
 
             state.allItems.filterItems = state.allItems.items.filter((item) =>
-                action.payload.includes(item.cuisine.id),
+                action.payload.filtes.includes(item.cuisine.id),
             );
         },
         searchRecipe: (state, action) => {
@@ -73,6 +74,16 @@ const recipesSlice = createSlice({
                     .map((item) => item.cuisine)
                     .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)),
                     (state.allItems.isLoading = false);
+                state.allItems.calorieRange = [
+                    Math.min.apply(
+                        null,
+                        action.payload.map((item) => item.caloricity),
+                    ),
+                    Math.max.apply(
+                        null,
+                        action.payload.map((item) => item.caloricity),
+                    ),
+                ];
             })
             .addCase(receiveRecipe.pending, (state) => {
                 state.selectedItem.isLoading = true;
