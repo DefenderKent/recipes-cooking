@@ -9,6 +9,7 @@ interface CheckboxListProps {
     handleFilters: (checked: number[]) => void;
     style?: CSS.Properties;
     className?: string;
+    filters: number[];
 }
 
 const useStyles = makeStyles(() =>
@@ -18,15 +19,13 @@ const useStyles = makeStyles(() =>
         },
     }),
 );
-export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters }) => {
+export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters, filters }) => {
     const classes = useStyles();
     const recipe = useAppSelector(recipes);
-    const cuisineIDs = recipe.allItems.filters.map((cuisine) => cuisine.id);
-    const [checked, setChecked] = useState(cuisineIDs as number[]);
+    const [checked, setChecked] = useState<number[]>(filters);
 
     const handleToggle = (value: number) => {
         const currentIndex = checked.indexOf(value);
-        console.log('currentIndex', currentIndex);
         const newChecked = [...checked];
         if (currentIndex === -1) {
             newChecked.push(value);

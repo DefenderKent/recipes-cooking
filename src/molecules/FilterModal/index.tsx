@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { CheckboxList } from '..';
@@ -7,8 +7,8 @@ import { RangeSlider } from '../FilterSlider';
 import { View } from '../../templates';
 import { Colors } from '../../style/globalStyles';
 import { filterRecipe } from '../../store/recipes/recipesSlice';
+
 import { useDispatch } from 'react-redux';
-// import { useDispatch } from 'react-redux';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -51,29 +51,39 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 interface FilterModalProps {
+    filters: number[];
+    range: number[];
     isVisible: boolean;
     onToggle: () => void;
 }
-
-export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle }) => {
+type Test = {
+    range: number[];
+    filters: number[];
+};
+export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, filters, range }) => {
     const classes = useStyles();
+    console.log('filters000', filters);
 
     const [modalStyle] = React.useState(getModalStyle);
     const dispatch = useDispatch();
-    // const recipe = useAppSelector(recipes);
-    // const Itdsa = recipe.allItems.items.map((items) => items.cuisine.id);
-    // const [filters, setFilters] = useState([1, 2, 3, 4, 5, 6]);
-    // console.log('recipes', recipe.allItems.filterItems);
 
-    const handleFilters = (filtes: any[]) => {
-        console.log('filtes-----', filtes);
-        dispatch(filterRecipe({ filtes: filtes }));
+    const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters });
+
+    const handleFilters = (filters: number[]) => {
+        console.log('filters', filters);
+
+        setStash({ ...stash, filters });
     };
-    //сделать общее хранилище и отправлять доним объектом
+
     const handleSlider = (range: number[]) => {
-        console.log('range-----', { range: range });
-        dispatch(filterRecipe({ range: range }));
+        setStash({ ...stash, range });
     };
+    const test = (tast: Test) => {
+        dispatch(filterRecipe(tast));
+        onToggle();
+        console.log('tast', tast);
+    };
+
     return (
         <Modal
             open={isVisible}
@@ -86,7 +96,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle })
                     Filter
                 </Typography>
 
-                <CheckboxList handleFilters={(filtes) => handleFilters(filtes)} />
+                <CheckboxList handleFilters={(filters) => handleFilters(filters)} filters={filters} />
                 <View display="block" className={classes.sliderContainer}>
                     <RangeSlider handleSlider={(range) => handleSlider(range)} />
                 </View>
@@ -95,7 +105,11 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle })
                     <Button className={classes.button} variant="outlined">
                         Clear
                     </Button>
-                    <Button className={classes.button} variant="outlined">
+                    <Button
+                        className={classes.button}
+                        variant="outlined"
+                        onClick={() => test({ range: stash.range, filters: stash.filters })}
+                    >
                         Show Recipes
                     </Button>
                 </View>

@@ -45,12 +45,15 @@ const recipesSlice = createSlice({
         filterRecipe: (state, action) => {
             console.log('filterRecipe:', action.payload);
 
-            if (action.payload.filtes.length === 1) {
+            if (action.payload.filters.length === 1) {
                 state.allItems.filterItems = state.allItems.items;
             }
 
-            state.allItems.filterItems = state.allItems.items.filter((item) =>
-                action.payload.filtes.includes(item.cuisine.id),
+            state.allItems.filterItems = state.allItems.items.filter(
+                (item) =>
+                    action.payload.filters.includes(item.cuisine.id) &&
+                    action.payload.range[0] <= item.caloricity &&
+                    item.caloricity <= action.payload.range[1],
             );
         },
         searchRecipe: (state, action) => {

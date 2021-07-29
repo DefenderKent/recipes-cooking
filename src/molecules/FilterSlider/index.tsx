@@ -34,8 +34,8 @@ export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider }) => {
     return (
         <div className={classes.root}>
             <Slider
-                min={100}
-                max={1000}
+                min={recipe.allItems.calorieRange[0]}
+                max={recipe.allItems.calorieRange[1]}
                 step={1}
                 value={value}
                 onChange={handleChange}

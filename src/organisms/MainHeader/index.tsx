@@ -10,8 +10,9 @@ import { Colors } from '../../style/globalStyles';
 import Image from '../../assets/image.png';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { useDispatch } from 'react-redux';
-import { searchRecipe } from '../../store/recipes/recipesSlice';
+import { recipes, searchRecipe } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';
+import { useAppSelector } from '../../store/hooks';
 
 interface MainHeaderProps {
     className?: string;
@@ -55,6 +56,9 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
     const dispatch = useDispatch();
     const search = (query: string) => dispatch(searchRecipe(query));
     const [isVisible, setVisible] = useState(false);
+    const recipe = useAppSelector(recipes);
+    const cuisineIDs = recipe.allItems.filters.map((cuisine) => cuisine.id);
+
     const onToggle = () => {
         console.log('onToggle:', isVisible);
 
@@ -81,7 +85,12 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
                         </IconButton>
                     </View>
                 </View>
-                <FilterModal isVisible={isVisible} onToggle={onToggle} />
+                <FilterModal
+                    isVisible={isVisible}
+                    onToggle={onToggle}
+                    filters={cuisineIDs}
+                    range={recipe.allItems.calorieRange}
+                />
             </View>
             <View className={classes.img}></View>
         </View>
