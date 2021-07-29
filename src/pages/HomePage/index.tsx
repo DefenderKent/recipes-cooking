@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { CardRecipe } from '../../organisms';
-
 import { View } from '../../templates';
 import { makeStyles } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
-import { receiveRecipe, receiveRecipes, recipes } from '../../store/recipes/recipesSlice';
+import { CardRecipe } from '../../organisms';
+import { receiveRecipes, recipes } from '../../store/recipes/recipesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { hoursAndMinutes } from '../../utils/hoursAndMinutes';
+import { MainRoutes } from '../../navigation/routes';
 
 const useStyles = makeStyles({
     container: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
         paddingTop: 60,
     },
     card: {
-        marginRight: 18,
+        marginRight: 12,
         marginBottom: 24,
         '&:nth-child(3n)': {
             marginRight: 0,
@@ -24,6 +25,10 @@ const useStyles = makeStyles({
             marginRight: 0,
         },
     },
+    navLink: {
+        textDecoration: 'none',
+        display: 'flex',
+    },
 });
 export const HomePage: React.FC = () => {
     const classes = useStyles();
@@ -31,20 +36,21 @@ export const HomePage: React.FC = () => {
     const recipe = useAppSelector(recipes);
     useEffect(() => {
         dispatch(receiveRecipes());
-        dispatch(receiveRecipe(1));
     }, []);
 
     return (
         <View className={classes.container}>
             {recipe.allItems.filterItems.map((item) => (
-                <CardRecipe
-                    key={item.id}
-                    title={item.title}
-                    supTitle={item.description}
-                    image={item.thumbnail}
-                    tag={[`${hoursAndMinutes(item.cookTime)}`, `${item.caloricity} kCal`, `${item.cuisine.title}`]}
-                    className={classes.card}
-                />
+                <NavLink className={classes.navLink} to={`${MainRoutes.recipe + item.id}`}>
+                    <CardRecipe
+                        key={item.id}
+                        title={item.title}
+                        supTitle={item.description}
+                        image={item.thumbnail}
+                        tag={[`${hoursAndMinutes(item.cookTime)}`, `${item.caloricity} kCal`, `${item.cuisine.title}`]}
+                        className={classes.card}
+                    />
+                </NavLink>
             ))}
         </View>
     );

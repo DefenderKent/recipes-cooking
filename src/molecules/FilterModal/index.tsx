@@ -1,40 +1,29 @@
 import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { CheckboxList } from '..';
+import { useDispatch } from 'react-redux';
 import { Button, Typography } from '@material-ui/core';
+
+import { CheckboxList } from '..';
 import { RangeSlider } from '../FilterSlider';
 import { View } from '../../templates';
 import { Colors } from '../../style/globalStyles';
 import { filterRecipe } from '../../store/recipes/recipesSlice';
 
-import { useDispatch } from 'react-redux';
-
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: 'absolute',
-            //TODO: добавить maxwidth вместо width
             width: 440,
             flex: 1,
             height: 560,
             backgroundColor: theme.palette.background.paper,
             padding: 32,
+            margin: 'auto',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
         },
         buttonContainer: {},
 
@@ -56,32 +45,31 @@ interface FilterModalProps {
     isVisible: boolean;
     onToggle: () => void;
 }
-type Test = {
+type Filters = {
     range: number[];
     filters: number[];
 };
 export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, filters, range }) => {
     const classes = useStyles();
-    console.log('filters000', filters);
 
-    const [modalStyle] = React.useState(getModalStyle);
     const dispatch = useDispatch();
 
     const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters });
 
     const handleFilters = (filters: number[]) => {
-        console.log('filters', filters);
-
         setStash({ ...stash, filters });
     };
 
     const handleSlider = (range: number[]) => {
         setStash({ ...stash, range });
     };
-    const test = (tast: Test) => {
-        dispatch(filterRecipe(tast));
+
+    const onPress = (data: Filters) => {
+        dispatch(filterRecipe(data));
         onToggle();
-        console.log('tast', tast);
+    };
+    const onClear = () => {
+        setStash({ range: [], filters: [] });
     };
 
     return (
@@ -91,7 +79,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, f
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
-            <View style={modalStyle} className={classes.paper} display="block">
+            <View className={classes.paper} display="flex" direction="column" justify="space-between">
                 <Typography variant="inherit" component="h3">
                     Filter
                 </Typography>
@@ -102,13 +90,13 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, f
                 </View>
 
                 <View className={classes.buttonContainer} justify="space-between">
-                    <Button className={classes.button} variant="outlined">
+                    <Button className={classes.button} variant="outlined" onClick={onClear}>
                         Clear
                     </Button>
                     <Button
                         className={classes.button}
                         variant="outlined"
-                        onClick={() => test({ range: stash.range, filters: stash.filters })}
+                        onClick={() => onPress({ range: stash.range, filters: stash.filters })}
                     >
                         Show Recipes
                     </Button>

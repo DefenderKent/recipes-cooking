@@ -8,11 +8,13 @@ import { Colors } from '../../style/globalStyles';
 interface TitleType {
     count: number;
     style?: CSS.Properties;
+    className?: string;
 }
 
 export const StyledCountBullet = styled.div`
     padding: 2px 5px;
-    border-radius: 16px;
+    border-radius: 20px;
+    height: 16px;
     border: 1px solid ${Colors.shade20};
 `;
 export const CountBullet: React.FC<TitleType> = ({ count, ...props }) => (

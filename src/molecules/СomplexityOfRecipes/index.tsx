@@ -1,28 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import CSS from 'csstype';
+import { Typography } from '@material-ui/core';
 
-import { Hat } from '../../assets/Hat';
 import { Difficulty } from '../../style/globalStyles';
 import { View } from '../../templates';
-import { getDifficulty } from '../../utils/getDifficulty';
-import { Typography } from '@material-ui/core';
+import { getLabelInfo } from '../../utils/getLabelInfo';
 
 interface СomplexityRecipesPros {
     difficulty: keyof typeof Difficulty;
+    title?: string;
     style?: CSS.Properties;
+    className?: string;
 }
 const СomplexityRecipesStyled = styled.div<СomplexityRecipesPros>`
-    color: ${({ difficulty }) => getDifficulty(difficulty).color}};
+    color: ${({ difficulty }) => getLabelInfo(difficulty).color}};
 `;
 
 export const СomplexityOfRecipes: React.FC<СomplexityRecipesPros> = (props) => {
     return (
         <СomplexityRecipesStyled {...props}>
             <View>
-                <Hat color={getDifficulty(props.difficulty).color} />
+                {getLabelInfo(props.difficulty).icon}
                 <Typography style={{ marginLeft: '9px' }} variant="body1" component="body">
-                    {getDifficulty(props.difficulty).title}
+                    {getLabelInfo(props.difficulty, props.title).title}
                 </Typography>
             </View>
         </СomplexityRecipesStyled>

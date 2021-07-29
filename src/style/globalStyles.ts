@@ -8,6 +8,7 @@ export enum Colors {
     easy = '#2FB65D',
     medium = '#EB8A31',
     hard = '#EB3C31',
+    grey = '#C8C8C8',
 }
 export const Global = createGlobalStyle`
 
@@ -58,4 +59,7 @@ export enum Difficulty {
     easy,
     medium,
     hard,
+    time,
+    kCal,
+    cuisine,
 }

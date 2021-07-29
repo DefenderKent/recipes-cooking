@@ -9,7 +9,7 @@ interface TextType {
     fontSize?: CSS.Property.FontSize;
     fontWeight?: CSS.Property.FontWeight;
     lineHeight?: CSS.Property.LineHeight;
-
+    className?: string;
     style?: CSS.Properties;
 }
 
