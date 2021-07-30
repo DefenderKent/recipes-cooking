@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CSS from 'csstype';
 import { Checkbox, createStyles, FormControlLabel, FormGroup, makeStyles } from '@material-ui/core';
 
-import { useAppSelector } from '../../store/hooks';
-import { recipes } from '../../store/recipes/recipesSlice';
+import { Options } from '../../store/recipes/types';
 
 interface CheckboxListProps {
-    handleFilters: (checked: number[]) => void;
+    handleOptions: (id: number, isSelected: boolean) => void;
     style?: CSS.Properties;
     className?: string;
-    filters: number[];
+    options: Options[];
 }
 
 const useStyles = makeStyles(() =>
@@ -19,28 +18,12 @@ const useStyles = makeStyles(() =>
         },
     }),
 );
-export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters, filters }) => {
+export const CheckboxList: React.FC<CheckboxListProps> = ({ handleOptions, options }) => {
     const classes = useStyles();
-    const recipe = useAppSelector(recipes);
-    const [checked, setChecked] = useState<number[]>(filters);
-    useEffect(() => {
-        setChecked(filters);
-    }, [filters]);
 
-    const handleToggle = (value: number) => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-        setChecked(newChecked);
-        handleFilters(newChecked);
-    };
     return (
         <FormGroup>
-            {recipe.allItems.filters.map((item) => (
+            {options.map((item) => (
                 <FormControlLabel
                     key={item.id}
                     labelPlacement="start"
@@ -48,9 +31,9 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({ handleFilters, filte
                     control={
                         <Checkbox
                             color="default"
-                            checked={checked.indexOf(item.id) !== -1 && true}
+                            checked={item.isSelected}
                             onChange={() => {
-                                handleToggle(item.id);
+                                handleOptions(item.id, item.isSelected);
                             }}
                             name="checkedA"
                         />

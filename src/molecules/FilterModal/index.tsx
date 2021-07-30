@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { useDispatch } from 'react-redux';
+
 import { Button, Typography } from '@material-ui/core';
 
 import { CheckboxList } from '..';
 import { RangeSlider } from '../FilterSlider';
 import { View } from '../../templates';
 import { Colors } from '../../style/globalStyles';
-import { filterRecipe } from '../../store/recipes/recipesSlice';
+import { Options } from '../../store/recipes/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,35 +40,31 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 interface FilterModalProps {
-    filters: number[];
+    options: Options[];
+    handleOptions: (id: number, isSelected: boolean) => void;
+
     range: number[];
     isVisible: boolean;
     onToggle: () => void;
 }
-type Filters = {
-    range: number[];
-    filters: number[];
-};
-export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, filters, range }) => {
+
+export const FilterModal: React.FC<FilterModalProps> = ({
+    isVisible,
+    onToggle,
+
+    range,
+    options,
+    handleOptions,
+}) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters });
-
-    useEffect(() => {
-        setStash({ range, filters });
-    }, [range, filters]);
-
-    const handleFilters = (filters: number[]) => {
-        setStash({ ...stash, filters });
-    };
+    const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters: [] });
 
     const handleSlider = (range: number[]) => {
         setStash({ ...stash, range });
     };
 
-    const onPress = (data: Filters) => {
-        dispatch(filterRecipe(data));
-        onToggle();
+    const onPress = (data: any) => {
+        console.log('data', data);
     };
     const onClear = () => {
         setStash({ range: [], filters: [] });
@@ -85,7 +81,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isVisible, onToggle, f
                     Filter
                 </Typography>
 
-                <CheckboxList handleFilters={(filters) => handleFilters(filters)} filters={stash.filters} />
+                <CheckboxList handleOptions={handleOptions} options={options} />
                 <View display="block" className={classes.sliderContainer}>
                     <RangeSlider handleSlider={(range) => handleSlider(range)} />
                 </View>

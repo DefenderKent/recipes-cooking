@@ -10,7 +10,7 @@ import { Colors } from '../../style/globalStyles';
 import Image from '../../assets/image.png';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { useDispatch } from 'react-redux';
-import { recipes, searchRecipe } from '../../store/recipes/recipesSlice';
+import { recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';
 import { useAppSelector } from '../../store/hooks';
 
@@ -57,12 +57,14 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
     const search = (query: string) => dispatch(searchRecipe(query));
     const [isVisible, setVisible] = useState(false);
     const recipe = useAppSelector(recipes);
-    const cuisineIDs = recipe.allItems.filters.map((cuisine) => cuisine.id);
 
     const onToggle = () => {
         console.log('onToggle:', isVisible);
 
         setVisible((prev) => !prev);
+    };
+    const handleOptions = (id: number, isSelected: boolean) => {
+        dispatch(updateOptions({ id, isSelected: !isSelected }));
     };
     return (
         <View className={`${classes.root} ${className}`}>
@@ -86,9 +88,10 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
                     </View>
                 </View>
                 <FilterModal
+                    options={recipe.allItems.filters}
+                    handleOptions={handleOptions}
                     isVisible={isVisible}
                     onToggle={onToggle}
-                    filters={cuisineIDs}
                     range={recipe.allItems.calorieRange}
                 />
             </View>

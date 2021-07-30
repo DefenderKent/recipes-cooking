@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getRecipe, getRecipes } from '../../api/axios/recipes';
 import { RootState } from '../types';
 import { RecipesState } from './types';
@@ -42,6 +42,14 @@ const recipesSlice = createSlice({
     name: 'recipes',
     initialState,
     reducers: {
+        updateOptions: (state, action: PayloadAction<{ id: number; isSelected: boolean }>) => {
+            state.allItems.filters = state.allItems.filters.map((item) => {
+                if (item.id === action.payload.id) {
+                    return { ...item, isSelected: action.payload.isSelected };
+                }
+                return item;
+            });
+        },
         filterRecipe: (state, action) => {
             console.log('filterRecipe:', action.payload);
 
@@ -74,7 +82,9 @@ const recipesSlice = createSlice({
                 state.allItems.filterItems = action.payload;
                 state.allItems.items = action.payload;
                 (state.allItems.filters = action.payload
-                    .map((item) => item.cuisine)
+                    .map((item) => {
+                        return { ...item.cuisine, isSelected: true };
+                    })
                     .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)),
                     (state.allItems.isLoading = false);
                 state.allItems.calorieRange = [
@@ -98,7 +108,7 @@ const recipesSlice = createSlice({
             });
     },
 });
-export const { searchRecipe, filterRecipe } = recipesSlice.actions;
+export const { searchRecipe, filterRecipe, updateOptions } = recipesSlice.actions;
 export const recipes = (state: RootState) => state.recipes;
 
 export default recipesSlice.reducer;

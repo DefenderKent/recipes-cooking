@@ -1,10 +1,13 @@
 import { Cuisine, Recipe, RecipeShort } from '../../api/types';
 
+export interface Options extends Cuisine {
+    isSelected: boolean;
+}
 export type RecipesState = {
     allItems: {
         items: RecipeShort[];
         filterItems: RecipeShort[];
-        filters: Cuisine[];
+        filters: Options[];
         calorieRange: number[];
         isLoading: boolean;
     };
