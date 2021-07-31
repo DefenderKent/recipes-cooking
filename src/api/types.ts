@@ -24,6 +24,7 @@ export interface RootObject {
 }
 
 export type RecipeShort = Omit<Recipe, 'difficulty' | 'ingredients' | 'instructions'>;
+
 export interface RecipeShortObject {
     recipes: RecipeShort[];
 }
