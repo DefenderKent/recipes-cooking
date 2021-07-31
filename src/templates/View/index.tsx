@@ -4,6 +4,7 @@ import CSS from 'csstype';
 
 //Сделал, что бы комфортее было с react-native переходить :)
 interface ViewProps {
+    id?: string;
     display?: CSS.Property.Display;
     direction?: CSS.Property.FlexDirection;
     aligan?: CSS.Property.AlignItems;

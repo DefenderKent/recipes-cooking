@@ -53,6 +53,55 @@ body{
     font-size: 24px;
     line-height:  28px;
 }
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+header.smaller {
+    height: 330px;
+  }
+  
+  header.smaller h1#logo {
+    width: 150px;
+    height: 75px;
+    line-height: 55px;
+    font-size: 55px;
+    margin: 0;
+  }
+  
+  
+
+  header {
+    width: 100%;
+    height: 25em;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+ 
+    background-color: white;
+    transition: height 0.3s;
+    display: inline-flex;
+    justify-content: center;
+  }
+  
+  header h1#logo {
+    display: inline-block;
+    line-height: 3em;
+    margin: 0;
+    padding: 0 1em;
+   
+    float: left;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
 
 `;
 export enum Difficulty {

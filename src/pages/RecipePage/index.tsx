@@ -13,7 +13,7 @@ import { useAppSelector } from '../../store/hooks';
 import { hoursAndMinutes } from '../../utils/hoursAndMinutes';
 
 const useStyles = makeStyles({
-    container: { paddingTop: 80 },
+    container: { paddingTop: 660 },
     containerDescr: {
         flex: 1,
         marginRight: 20,
@@ -54,7 +54,6 @@ const useStyles = makeStyles({
 });
 export const RecipePage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    console.log('data', id);
     const recipe = useAppSelector(recipes);
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -117,7 +116,7 @@ export const RecipePage: React.FC = () => {
                 ) : (
                     <Carousel className={classes.slider} navButtonsAlwaysInvisible>
                         {recipe.selectedItem.item.images.map((item) => (
-                            <img src={item} alt="BigCo Inc. logo" width={'100%'} />
+                            <img src={item} alt="BigImg" width={'100%'} />
                         ))}
                     </Carousel>
                 )}

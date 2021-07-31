@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { View } from '../../templates';
 import { makeStyles } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
+import { View } from '../../templates';
 import { CardRecipe } from '../../organisms';
 import { receiveRecipes, recipes } from '../../store/recipes/recipesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        paddingTop: 60,
+        paddingTop: 660,
     },
     card: {
         marginRight: 12,

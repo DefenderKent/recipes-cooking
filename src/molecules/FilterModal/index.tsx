@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-
 import { Button, Typography } from '@material-ui/core';
 
 import { CheckboxList } from '..';
@@ -75,7 +74,6 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                 <Typography variant="inherit" component="h3">
                     Filter
                 </Typography>
-
                 <CheckboxList handleOptions={handleOptions} options={options} />
                 <View display="block" className={classes.sliderContainer}>
                     <RangeSlider
@@ -84,7 +82,6 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                         calorieRange={calorieRange}
                     />
                 </View>
-
                 <View className={classes.buttonContainer} justify="space-between">
                     <Button className={classes.button} variant="outlined" onClick={onClear}>
                         Clear

@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { getRecipe, getRecipes } from '../../api/axios/recipes';
 import { RootState } from '../types';
 import { RecipesState } from './types';
+
 export const receiveRecipes = createAsyncThunk('recipes/getRecipes', async () => {
     const { data } = await getRecipes();
     console.log('reciveRecipes:Data', data);
@@ -9,7 +11,6 @@ export const receiveRecipes = createAsyncThunk('recipes/getRecipes', async () =>
 });
 export const receiveRecipe = createAsyncThunk('recipes/getRecipe', async (recipeID: number) => {
     const { data } = await getRecipe(recipeID);
-    console.log('reciveRecipes:Data', data);
     return data.recipe;
 });
 const initialState: RecipesState = {
@@ -38,7 +39,7 @@ const initialState: RecipesState = {
         isLoading: false,
     },
 };
-// recipe.allItems.items.filter((item) => item.title.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+
 const recipesSlice = createSlice({
     name: 'recipes',
     initialState,
@@ -59,7 +60,6 @@ const recipesSlice = createSlice({
             state.allItems.filters.map((item) => (item.isSelected = false));
         },
         filterRecipe: (state, action: PayloadAction<number[]>) => {
-            // console.log('filterRecipe:', action.payload);
             state.allItems.filterItems = state.allItems.items.filter((item) => {
                 for (let index = 0; index < state.allItems.filters.length; index++) {
                     const element = state.allItems.filters[index];
@@ -73,16 +73,6 @@ const recipesSlice = createSlice({
                     }
                 }
             });
-            // if (action.payload.filters.length === 1) {
-            //     state.allItems.filterItems = state.allItems.items;
-            // }
-
-            // state.allItems.filterItems = state.allItems.items.filter(
-            //     (item) =>
-            //         action.payload.filters.includes(item.cuisine.id) &&
-            //         action.payload.range[0] <= item.caloricity &&
-            //         item.caloricity <= action.payload.range[1],
-            // );
         },
         searchRecipe: (state, action) => {
             if (action.payload === '') {

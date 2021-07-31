@@ -20,6 +20,7 @@ module.exports = {
         'react/prop-types': 'off',
         '@typescript-eslint/no-unused-vars': 'error',
         'no-unused-vars': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
     globals: {
         JSX: true,
