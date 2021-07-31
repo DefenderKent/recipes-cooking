@@ -10,7 +10,7 @@ import { Colors } from '../../style/globalStyles';
 import Image from '../../assets/image.png';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { useDispatch } from 'react-redux';
-import { recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
+import { clearFilter, filterRecipe, recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';
 import { useAppSelector } from '../../store/hooks';
 
@@ -59,12 +59,22 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
     const recipe = useAppSelector(recipes);
 
     const onToggle = () => {
-        console.log('onToggle:', isVisible);
-
         setVisible((prev) => !prev);
     };
     const handleOptions = (id: number, isSelected: boolean) => {
         dispatch(updateOptions({ id, isSelected: !isSelected }));
+    };
+    const [calorieRange, setCalorieRange] = React.useState<number[]>(recipe.allItems.startRange);
+
+    const handleChange = (newValue: number[]) => {
+        setCalorieRange(newValue as number[]);
+    };
+    const onFilterRecipe = (calorieRange: number[]) => {
+        dispatch(filterRecipe(calorieRange));
+        onToggle();
+    };
+    const onClear = () => {
+        dispatch(clearFilter());
     };
     return (
         <View className={`${classes.root} ${className}`}>
@@ -78,7 +88,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
                         <SearchInput className={classes.input} search={search} />
                         <IconButton
                             className={classes.colorIconButton}
-                            aria-label="delete2"
+                            aria-label="delete"
                             centerRipple={false}
                             onClick={onToggle}
                             color="inherit"
@@ -90,9 +100,13 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ className }) => {
                 <FilterModal
                     options={recipe.allItems.filters}
                     handleOptions={handleOptions}
+                    handleCalorieRange={(props) => handleChange(props)}
                     isVisible={isVisible}
                     onToggle={onToggle}
-                    range={recipe.allItems.calorieRange}
+                    calorieRange={calorieRange.length ? calorieRange : recipe.allItems.startRange}
+                    startRange={recipe.allItems.startRange}
+                    filterRecipe={onFilterRecipe}
+                    onClear={onClear}
                 />
             </View>
             <View className={classes.img}></View>

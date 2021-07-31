@@ -18,6 +18,7 @@ const initialState: RecipesState = {
         filterItems: [],
         filters: [],
         calorieRange: [],
+        startRange: [],
         isLoading: false,
     },
     selectedItem: {
@@ -50,19 +51,38 @@ const recipesSlice = createSlice({
                 return item;
             });
         },
-        filterRecipe: (state, action) => {
-            console.log('filterRecipe:', action.payload);
+        updateCalorieRange: (state, action: PayloadAction<number[]>) => {
+            state.allItems.calorieRange = action.payload;
+        },
+        clearFilter: (state) => {
+            state.allItems.calorieRange = state.allItems.startRange;
+            state.allItems.filters.map((item) => (item.isSelected = false));
+        },
+        filterRecipe: (state, action: PayloadAction<number[]>) => {
+            // console.log('filterRecipe:', action.payload);
+            state.allItems.filterItems = state.allItems.items.filter((item) => {
+                for (let index = 0; index < state.allItems.filters.length; index++) {
+                    const element = state.allItems.filters[index];
+                    if (
+                        item.cuisine.id === element.id &&
+                        element.isSelected &&
+                        action.payload[0] <= item.caloricity &&
+                        item.caloricity <= action.payload[1]
+                    ) {
+                        return element;
+                    }
+                }
+            });
+            // if (action.payload.filters.length === 1) {
+            //     state.allItems.filterItems = state.allItems.items;
+            // }
 
-            if (action.payload.filters.length === 1) {
-                state.allItems.filterItems = state.allItems.items;
-            }
-
-            state.allItems.filterItems = state.allItems.items.filter(
-                (item) =>
-                    action.payload.filters.includes(item.cuisine.id) &&
-                    action.payload.range[0] <= item.caloricity &&
-                    item.caloricity <= action.payload.range[1],
-            );
+            // state.allItems.filterItems = state.allItems.items.filter(
+            //     (item) =>
+            //         action.payload.filters.includes(item.cuisine.id) &&
+            //         action.payload.range[0] <= item.caloricity &&
+            //         item.caloricity <= action.payload.range[1],
+            // );
         },
         searchRecipe: (state, action) => {
             if (action.payload === '') {
@@ -87,7 +107,7 @@ const recipesSlice = createSlice({
                     })
                     .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)),
                     (state.allItems.isLoading = false);
-                state.allItems.calorieRange = [
+                state.allItems.startRange = [
                     Math.min.apply(
                         null,
                         action.payload.map((item) => item.caloricity),
@@ -97,6 +117,7 @@ const recipesSlice = createSlice({
                         action.payload.map((item) => item.caloricity),
                     ),
                 ];
+                state.allItems.calorieRange = state.allItems.startRange;
             })
             .addCase(receiveRecipe.pending, (state) => {
                 state.selectedItem.isLoading = true;
@@ -108,7 +129,7 @@ const recipesSlice = createSlice({
             });
     },
 });
-export const { searchRecipe, filterRecipe, updateOptions } = recipesSlice.actions;
+export const { searchRecipe, filterRecipe, updateOptions, updateCalorieRange, clearFilter } = recipesSlice.actions;
 export const recipes = (state: RootState) => state.recipes;
 
 export default recipesSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
@@ -41,34 +41,29 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 interface FilterModalProps {
     options: Options[];
+    handleCalorieRange: (range: number[]) => void;
     handleOptions: (id: number, isSelected: boolean) => void;
-
-    range: number[];
+    calorieRange: number[];
+    startRange: number[];
     isVisible: boolean;
     onToggle: () => void;
+    filterRecipe: (range: number[]) => void;
+    onClear: () => void;
 }
 
 export const FilterModal: React.FC<FilterModalProps> = ({
     isVisible,
     onToggle,
-
-    range,
+    calorieRange,
+    startRange,
     options,
     handleOptions,
+    handleCalorieRange,
+    filterRecipe,
+    onClear,
 }) => {
     const classes = useStyles();
-    const [stash, setStash] = useState<{ range: any[]; filters: number[] }>({ range, filters: [] });
-
-    const handleSlider = (range: number[]) => {
-        setStash({ ...stash, range });
-    };
-
-    const onPress = (data: any) => {
-        console.log('data', data);
-    };
-    const onClear = () => {
-        setStash({ range: [], filters: [] });
-    };
+    const onPress = () => filterRecipe(calorieRange);
     return (
         <Modal
             open={isVisible}
@@ -83,18 +78,18 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 
                 <CheckboxList handleOptions={handleOptions} options={options} />
                 <View display="block" className={classes.sliderContainer}>
-                    <RangeSlider handleSlider={(range) => handleSlider(range)} />
+                    <RangeSlider
+                        handleSlider={handleCalorieRange}
+                        startRange={startRange}
+                        calorieRange={calorieRange}
+                    />
                 </View>
 
                 <View className={classes.buttonContainer} justify="space-between">
                     <Button className={classes.button} variant="outlined" onClick={onClear}>
                         Clear
                     </Button>
-                    <Button
-                        className={classes.button}
-                        variant="outlined"
-                        onClick={() => onPress({ range: stash.range, filters: stash.filters })}
-                    >
+                    <Button className={classes.button} variant="outlined" onClick={onPress}>
                         Show Recipes
                     </Button>
                 </View>

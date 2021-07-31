@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Colors } from '../../style/globalStyles';
-import { useAppSelector } from '../../store/hooks';
-import { recipes } from '../../store/recipes/recipesSlice';
 
 interface RangeSliderProps {
     handleSlider: (range: number[]) => void;
+    startRange: number[];
+    calorieRange: number[];
 }
 
 const useStyles = makeStyles({
@@ -21,23 +21,20 @@ function valuetext(value: number) {
     return `${value}`;
 }
 
-export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider }) => {
+export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider, startRange, calorieRange }) => {
     const classes = useStyles();
-    const recipe = useAppSelector(recipes);
-    const [value, setValue] = React.useState<number[]>(recipe.allItems.calorieRange);
 
     const handleChange = (event: any, newValue: number | number[]) => {
-        setValue(newValue as number[]);
         handleSlider(newValue as number[]);
     };
 
     return (
         <div className={classes.root}>
             <Slider
-                min={recipe.allItems.calorieRange[0]}
-                max={recipe.allItems.calorieRange[1]}
+                min={startRange[0]}
+                max={startRange[1]}
                 step={1}
-                value={value}
+                value={calorieRange}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"

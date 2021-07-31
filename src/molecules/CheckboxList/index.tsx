@@ -23,24 +23,20 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({ handleOptions, optio
 
     return (
         <FormGroup>
-            {options.map((item) => (
-                <FormControlLabel
-                    key={item.id}
-                    labelPlacement="start"
-                    className={classes.formContainer}
-                    control={
-                        <Checkbox
-                            color="default"
-                            checked={item.isSelected}
-                            onChange={() => {
-                                handleOptions(item.id, item.isSelected);
-                            }}
-                            name="checkedA"
-                        />
-                    }
-                    label={item.title}
-                />
-            ))}
+            {options.map((item) => {
+                const toggle = () => handleOptions(item.id, item.isSelected);
+                return (
+                    <FormControlLabel
+                        key={item.id}
+                        labelPlacement="start"
+                        className={classes.formContainer}
+                        control={
+                            <Checkbox color="default" checked={item.isSelected} onChange={toggle} name="checkedA" />
+                        }
+                        label={item.title}
+                    />
+                );
+            })}
         </FormGroup>
     );
 };
