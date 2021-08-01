@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getRecipe, getRecipes } from '../../api/axios/recipes';
+import { getRecipe, getRecipes } from '../../api/recipes';
 import { RootState } from '../types';
 import { RecipesState } from './types';
 

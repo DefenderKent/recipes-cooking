@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
 import { useDispatch } from 'react-redux';
 
 import { View } from '../../templates';
-import { Text } from '../../atoms';
-import { SearchInput } from '../../molecules';
 import { Colors } from '../../style/globalStyles';
 import Image from '../../assets/image.png';
-import FilterIcon from '@material-ui/icons/FilterList';
 import { clearFilter, filterRecipe, recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';
 import { useAppSelector } from '../../store/hooks';
+import { HeaderInput } from './HeaderInput';
 
 interface MainHeaderProps {
     scrolled: number;
@@ -83,38 +79,19 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ scrolled }) => {
             id="global-nav"
             className={`${classes.root} nav ${scrolled > 70 && 'scrolled-nav-mid'} ${scrolled > 100 && 'scrolled-nav'}`}
         >
-            <View className={classes.leftColumn}>
-                <View direction="column">
-                    <Typography variant="inherit" component="h1">
-                        Air Recipes
-                    </Typography>
-                    <Text color={Colors.shade50}>Best Recipes for Best People</Text>
-                    <View className={classes.inputContainer}>
-                        <SearchInput className={classes.input} search={search} />
-                        <IconButton
-                            className={classes.colorIconButton}
-                            aria-label="delete"
-                            centerRipple={false}
-                            onClick={onToggle}
-                            color="inherit"
-                        >
-                            <FilterIcon className={classes.colorIcon} />
-                        </IconButton>
-                    </View>
-                </View>
-                <FilterModal
-                    options={recipe.allItems.filters}
-                    handleOptions={handleOptions}
-                    handleCalorieRange={(props) => handleChange(props)}
-                    isVisible={isVisible}
-                    onToggle={onToggle}
-                    calorieRange={calorieRange.length ? calorieRange : recipe.allItems.startRange}
-                    startRange={recipe.allItems.startRange}
-                    filterRecipe={onFilterRecipe}
-                    onClear={onClear}
-                />
-            </View>
+            <HeaderInput search={search} onToggle={onToggle} />
             <View className={classes.img}></View>
+            <FilterModal
+                options={recipe.allItems.filters}
+                handleOptions={handleOptions}
+                handleCalorieRange={(props) => handleChange(props)}
+                isVisible={isVisible}
+                onToggle={onToggle}
+                calorieRange={calorieRange.length ? calorieRange : recipe.allItems.startRange}
+                startRange={recipe.allItems.startRange}
+                filterRecipe={onFilterRecipe}
+                onClear={onClear}
+            />
         </View>
     );
 };

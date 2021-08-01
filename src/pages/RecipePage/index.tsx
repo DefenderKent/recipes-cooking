@@ -112,7 +112,7 @@ export const RecipePage: React.FC = () => {
             </View>
             <View className={classes.containerSlider}>
                 {recipe.selectedItem.isLoading ? (
-                    <Skeleton variant="rect" width={'100%'} height={'auto'} />
+                    <Skeleton variant="rect" width={'100%'} height="auto" />
                 ) : (
                     <Carousel className={classes.slider} navButtonsAlwaysInvisible>
                         {recipe.selectedItem.item.images.map((item) => (
