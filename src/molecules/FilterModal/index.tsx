@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, Typography } from '@material-ui/core';
+import { Button, IconButton, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { CheckboxList } from '..';
 import { RangeSlider } from '../FilterSlider';
@@ -39,6 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
                 backgroundColor: Colors.shade50,
                 color: Colors.base1,
             },
+        },
+        close: {
+            width: 24,
+            height: 24,
+            position: 'absolute',
+            right: 16,
+            top: 16,
+            color: Colors.shade50,
         },
     }),
 );
@@ -94,6 +103,9 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                         Show Recipes
                     </Button>
                 </View>
+                <IconButton aria-label="CloseIcon" onClick={onToggle} color="inherit" className={classes.close}>
+                    <CloseIcon />
+                </IconButton>
             </div>
         </Modal>
     );

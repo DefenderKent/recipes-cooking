@@ -67,6 +67,8 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ scrolled }) => {
         setCalorieRange(newValue as number[]);
     };
     const onFilterRecipe = (calorieRange: number[]) => {
+        console.log('calorieRange', calorieRange);
+
         dispatch(filterRecipe(calorieRange));
         onToggle();
     };

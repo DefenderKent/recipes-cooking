@@ -73,6 +73,7 @@ const recipesSlice = createSlice({
                     }
                 }
             });
+            state.allItems.calorieRange = action.payload;
         },
         searchRecipe: (state, action) => {
             if (action.payload === '') {
