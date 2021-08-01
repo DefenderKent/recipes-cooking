@@ -31,8 +31,8 @@ export const HomePage: React.FC = () => {
     return (
         <Grid className={classes.container} container spacing={3}>
             {recipe.allItems.filterItems.map((item) => (
-                <Grid item xs={4}>
-                    <NavLink key={item.id} className={classes.navLink} to={`${MainRoutes.recipe + item.id}`}>
+                <Grid item xs={4} key={item.id}>
+                    <NavLink className={classes.navLink} to={`${MainRoutes.recipe + item.id}`}>
                         <CardRecipe
                             title={item.title}
                             supTitle={item.description}

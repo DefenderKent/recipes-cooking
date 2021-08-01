@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: 'absolute',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
             zIndex: 101,
             width: 440,
             flex: 1,
@@ -71,7 +74,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
-            <View className={classes.paper} display="flex" direction="column" justify="space-between">
+            <div className={classes.paper}>
                 <Typography variant="inherit" component="h3">
                     Filter
                 </Typography>
@@ -91,7 +94,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                         Show Recipes
                     </Button>
                 </View>
-            </View>
+            </div>
         </Modal>
     );
 };
