@@ -6,33 +6,46 @@ import { mainRoutes } from '../../navigation/routes';
 import { MainHeader } from '../../organisms/MainHeader';
 
 export const StyledAppRouter = styled.div`
-    max-width: 1110px;
+    max-width: 1114px;
     margin: 0 auto;
     padding: 0 15px;
 `;
-export class AppRouter extends React.Component {
-    componentDidMount() {
-        window.addEventListener('scroll', this.resizeHeaderOnScroll);
-    }
-    resizeHeaderOnScroll() {
-        const distanceY = window.pageYOffset || document.documentElement.scrollTop,
-            shrinkOn = 200,
-            headerEl: any = document.getElementById('js-header');
+interface IProps {
+    scrollY?: number;
+}
 
-        if (distanceY > shrinkOn) {
-            headerEl.classList.add('smaller');
-        } else {
-            headerEl.classList.remove('smaller');
-        }
+interface StateType {
+    scrollY: number;
+}
+export class AppRouter extends React.Component<IProps, StateType> {
+    constructor(props: IProps) {
+        super(props);
+        this.state = {
+            scrollY: 0,
+        };
     }
+    componentDidMount() {
+        window.addEventListener('scroll', this.onScroll, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll, false);
+    }
+
+    onScroll = () => {
+        this.setState({
+            scrollY: window.scrollY,
+        });
+    };
+
     render() {
         return (
             <StyledAppRouter id="wrapper">
-                <MainHeader />
+                <MainHeader scrolled={this.state.scrollY} />
 
                 <Switch>
-                    {mainRoutes.map(({ path, Component }) => (
-                        <Route key={path} path={path} component={Component} exact />
+                    {mainRoutes.map(({ path, Component }, index) => (
+                        <Route key={`${path + index}`} path={path} component={Component} exact />
                     ))}
 
                     <Redirect to="/" />

@@ -13,7 +13,7 @@ import { useAppSelector } from '../../store/hooks';
 import { hoursAndMinutes } from '../../utils/hoursAndMinutes';
 
 const useStyles = makeStyles({
-    container: { paddingTop: 660 },
+    container: { paddingTop: 635 },
     containerDescr: {
         flex: 1,
         marginRight: 20,

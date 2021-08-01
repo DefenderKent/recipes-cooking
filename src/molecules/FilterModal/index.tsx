@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: 'absolute',
+            zIndex: 101,
             width: 440,
             flex: 1,
             height: 560,

@@ -17,12 +17,9 @@ interface CardRecipeProps {
     tag: string[];
     className?: string;
 }
-// type SelfPosition = "center" | "end" | "flex-end" | "flex-start" | "self-end" | "self-start" | "start";
 const useStyles = makeStyles({
     root: {
-        display: 'flex',
-        width: 348,
-        minHeight: 384,
+        height: '100%',
     },
     media: {
         position: 'relative',
@@ -42,21 +39,14 @@ const useStyles = makeStyles({
             marginRight: 0,
         },
     },
-    test: {
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'unset',
-        flex: 1,
-    },
 });
 
 export const CardRecipe: React.FC<CardRecipeProps> = ({ title, supTitle, image, tag, className }) => {
     const classes = useStyles();
-
     return (
         <Card className={`${classes.root} ${className}`}>
-            <CardActionArea className={classes.test}>
-                <CardMedia image={image} title="Contemplative Reptile" className={classes.media}>
+            <CardActionArea>
+                <CardMedia image={image} title="Image of a dish" className={classes.media}>
                     <View className={classes.recipeCellContainer}>
                         {tag.map((item, index) => (
                             <RecipeCell key={`${index + item}`} text={item} className={classes.tag} />

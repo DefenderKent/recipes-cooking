@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,10 +15,11 @@ import { FilterModal } from '../../molecules/FilterModal';
 import { useAppSelector } from '../../store/hooks';
 
 interface MainHeaderProps {
+    scrolled: number;
     className?: string;
 }
 const useStyles = makeStyles({
-    root: { margin: '0 40px' },
+    root: {},
     leftColumn: {
         paddingTop: 128,
         marginRight: 20,
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 
     colorIconButton: {
         color: Colors.shade20,
+        border: `1px solid ${Colors.shade20}`,
     },
     colorIcon: {
         color: Colors.base0,
@@ -36,6 +38,7 @@ const useStyles = makeStyles({
         backgroundSize: 'auto',
         backgroundRepeat: 'no-repeat',
         width: 814,
+
         display: 'flex',
         justifyContent: 'space-between',
     },
@@ -48,7 +51,8 @@ const useStyles = makeStyles({
     clearfix: {},
 });
 
-export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
+export const MainHeader: React.FC<MainHeaderProps> = ({ scrolled }) => {
+    scrolled;
     const classes = useStyles();
     const dispatch = useDispatch();
     const search = (query: string) => dispatch(searchRecipe(query));
@@ -73,23 +77,13 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
     const onClear = () => {
         dispatch(clearFilter());
     };
-    const resizeHeaderOnScroll = () => {
-        const distanceY = window.pageYOffset || document.documentElement.scrollTop,
-            shrinkOn = 200,
-            headerEl: any = document.getElementById('js-header');
 
-        if (distanceY > shrinkOn) {
-            headerEl.classList.add('smaller');
-        } else {
-            headerEl.classList.remove('smaller');
-        }
-    };
-    useEffect(() => {
-        window.addEventListener('scroll', resizeHeaderOnScroll);
-    }, []);
     return (
-        <header id="js-header" className={classes.root}>
-            <View className={classes.leftColumn} id="logo">
+        <View
+            id="global-nav"
+            className={`${classes.root} nav ${scrolled > 70 && 'scrolled-nav-mid'} ${scrolled > 100 && 'scrolled-nav'}`}
+        >
+            <View className={classes.leftColumn}>
                 <View direction="column">
                     <Typography variant="inherit" component="h1">
                         Air Recipes
@@ -121,6 +115,6 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
                 />
             </View>
             <View className={classes.img}></View>
-        </header>
+        </View>
     );
 };
