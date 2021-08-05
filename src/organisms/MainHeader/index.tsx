@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 
 import { View } from '../../templates';
-import { Colors } from '../../style/mainThem';
+import { Colors } from '../../style/paletteOptions';
 import Image from '../../assets/image.png';
 import { clearFilter, filterRecipe, recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';

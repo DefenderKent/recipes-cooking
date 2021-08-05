@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { CheckboxList } from '..';
 import { RangeSlider } from '../FilterSlider';
 import { View } from '../../templates';
-import { Colors } from '../../style/mainThem';
+import { Colors } from '../../style/paletteOptions';
 import { Options } from '../../store/recipes/types';
 
 const useStyles = makeStyles((theme: Theme) =>

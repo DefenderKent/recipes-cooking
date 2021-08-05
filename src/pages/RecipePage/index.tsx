@@ -63,7 +63,7 @@ export const RecipePage: React.FC = () => {
     return (
         <View className={classes.container} justify="space-between">
             <View className={classes.containerDescr} direction="column">
-                <Typography className={classes.title} variant="inherit" component="h2">
+                <Typography className={classes.title} variant="h2">
                     {recipe.selectedItem.isLoading ? <Skeleton /> : recipe.selectedItem.item.title}
                 </Typography>
                 <Typography variant="inherit" component="h6">

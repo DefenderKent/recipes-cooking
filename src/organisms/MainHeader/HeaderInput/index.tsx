@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { SearchInput } from '../../../molecules';
-import { Colors } from '../../../style/mainThem';
+import { Colors } from '../../../style/paletteOptions';
 import { View } from '../../../templates';
 import IconButton from '@material-ui/core/IconButton';
 import FilterIcon from '@material-ui/icons/FilterList';
@@ -38,10 +38,8 @@ export const HeaderInput: React.FC<HeaderInputProps> = ({ search, onToggle }) =>
     return (
         <View className={classes.leftColumn}>
             <View direction="column">
-                <Typography variant="h1" component="h1">
-                    Air Recipes
-                </Typography>
-                <Typography variant="h6" component="h6">
+                <Typography variant="h1">Air Recipes</Typography>
+                <Typography variant="subtitle1" color="textSecondary">
                     Best Recipes for Best People
                 </Typography>
                 <View className={classes.inputContainer}>

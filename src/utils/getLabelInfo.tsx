@@ -2,8 +2,9 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import WhatshotOutlinedIcon from '@material-ui/icons/WhatshotOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 
-import { Colors, Difficulty } from '../style/mainThem';
+import { Difficulty } from '../style/mainThem';
 import { Hat } from '../assets/Hat';
+import { Colors } from '../style/paletteOptions';
 
 export const getLabelInfo = (
     difficulty: keyof typeof Difficulty,
