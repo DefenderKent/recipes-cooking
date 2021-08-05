@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { CheckboxList } from '..';
 import { RangeSlider } from '../FilterSlider';
 import { View } from '../../templates';
-import { Colors } from '../../style/globalStyles';
+import { Colors } from '../../style/mainThem';
 import { Options } from '../../store/recipes/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -84,7 +84,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
             aria-describedby="simple-modal-description"
         >
             <div className={classes.paper}>
-                <Typography variant="inherit" component="h3">
+                <Typography variant="h3" component="h3">
                     Filter
                 </Typography>
                 <CheckboxList handleOptions={handleOptions} options={options} />
@@ -96,7 +96,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                     />
                 </View>
                 <View className={classes.buttonContainer} justify="space-between">
-                    <Button className={classes.button} variant="outlined" onClick={onClear}>
+                    <Button variant="outlined" onClick={onClear} color="primary">
                         Clear
                     </Button>
                     <Button className={classes.button} variant="outlined" onClick={onPress}>

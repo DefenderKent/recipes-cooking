@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CSS from 'csstype';
 import { Typography } from '@material-ui/core';
 
-import { Difficulty } from '../../style/globalStyles';
+import { Difficulty } from '../../style/mainThem';
 import { View } from '../../templates';
 import { getLabelInfo } from '../../utils/getLabelInfo';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { Colors } from '../../style/globalStyles';
+import { Colors } from '../../style/mainThem';
 
 interface RangeSliderProps {
     handleSlider: (range: number[]) => void;

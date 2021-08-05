@@ -16,9 +16,7 @@ const useStyles = makeStyles({
         paddingRight: 2,
     },
 
-    navLink: {
-        textDecoration: 'none',
-    },
+    navLink: {},
 });
 export const HomePage: React.FC = () => {
     const classes = useStyles();

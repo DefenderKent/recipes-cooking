@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CSS from 'csstype';
-import { Colors } from '../../style/globalStyles';
+import { Colors } from '../../style/mainThem';
 
 interface TextType {
     color?: CSS.Property.Color;

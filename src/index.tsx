@@ -5,17 +5,20 @@ import App from './App';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store/store';
-import { Global } from './style/globalStyles';
+import { theme } from './style/mainThem';
 import { BrowserRouter } from 'react-router-dom';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={store}>
-                <Global />
-                <App />
-            </Provider>
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </BrowserRouter>
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

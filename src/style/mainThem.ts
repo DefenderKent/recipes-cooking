@@ -1,3 +1,6 @@
+import { createTheme } from '@material-ui/core';
+import { typography } from './typography';
+
 import { createGlobalStyle } from 'styled-components';
 export enum Colors {
     base0 = '#000000',
@@ -10,22 +13,21 @@ export enum Colors {
     hard = '#EB3C31',
     grey = '#C8C8C8',
 }
-export const Global = createGlobalStyle`
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
- }
-h1, h2, h3 {
-    color: ${Colors.base0};
-    font-family: 'Khula', sans-serif;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
+export const theme = createTheme({
+    typography,
+    props: {},
+    overrides: {
+        MuiCssBaseline: {
+            '@global': {
+                html: { margin: 0, padding: 0, boxSizing: 'border-box' },
+                a: { textDecoration: 'none' },
+            },
+        },
+    },
+});
+
+export const Global = createGlobalStyle`
  h1{
    
     font-size: 64px;
@@ -48,10 +50,6 @@ h5{
     font-weight: bold;
     font-size: 9px;
     line-height: 11px;
-}
-body{
-    font-size: 24px;
-    line-height:  28px;
 }
 *,
 *:before,

@@ -7,8 +7,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 // @ts-expect-error Does not have Typescript support
 import Fade from 'react-reveal/Fade';
-
-import { Text } from '../../atoms';
 import { RecipeCell } from '../../molecules';
 import { View } from '../../templates';
 
@@ -57,10 +55,12 @@ export const CardRecipe: React.FC<CardRecipeProps> = ({ title, supTitle, image, 
                         </View>
                     </CardMedia>
                     <CardContent className={classes.textContainer}>
-                        <Typography variant="inherit" component="h3">
+                        <Typography variant="h3" component="h3">
                             {title}
                         </Typography>
-                        <Text>{supTitle}</Text>
+                        <Typography variant="inherit" component="h6">
+                            {supTitle}
+                        </Typography>
                     </CardContent>
                 </CardActionArea>
             </Fade>

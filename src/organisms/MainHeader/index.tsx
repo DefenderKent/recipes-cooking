@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 
 import { View } from '../../templates';
-import { Colors } from '../../style/globalStyles';
+import { Colors } from '../../style/mainThem';
 import Image from '../../assets/image.png';
 import { clearFilter, filterRecipe, recipes, searchRecipe, updateOptions } from '../../store/recipes/recipesSlice';
 import { FilterModal } from '../../molecules/FilterModal';
@@ -82,7 +82,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({ scrolled }) => {
             className={`${classes.root} nav ${scrolled > 70 && 'scrolled-nav-mid'} ${scrolled > 100 && 'scrolled-nav'}`}
         >
             <HeaderInput search={search} onToggle={onToggle} />
-            <View className={classes.img}></View>
+            {/* <View className={classes.img}></View> */}
             <FilterModal
                 options={recipe.allItems.filters}
                 handleOptions={handleOptions}

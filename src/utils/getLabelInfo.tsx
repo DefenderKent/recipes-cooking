@@ -2,7 +2,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import WhatshotOutlinedIcon from '@material-ui/icons/WhatshotOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 
-import { Colors, Difficulty } from '../style/globalStyles';
+import { Colors, Difficulty } from '../style/mainThem';
 import { Hat } from '../assets/Hat';
 
 export const getLabelInfo = (

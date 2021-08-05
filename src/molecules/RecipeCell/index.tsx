@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CSS from 'csstype';
 import Typography from '@material-ui/core/Typography';
 
-import { Colors } from '../../style/globalStyles';
+import { Colors } from '../../style/mainThem';
 
 interface RecipeCellProps {
     text: string;

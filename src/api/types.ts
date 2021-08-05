@@ -1,4 +1,4 @@
-import { Difficulty } from '../style/globalStyles';
+import { Difficulty } from '../style/mainThem';
 
 export interface Cuisine {
     id: number;

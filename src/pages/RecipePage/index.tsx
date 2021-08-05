@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { View } from '../../templates/View';
-import { Text } from '../../atoms';
+
 import { CountBullet, СomplexityOfRecipes } from '../../molecules';
 import { receiveRecipe, recipes } from '../../store/recipes/recipesSlice';
 import { useAppSelector } from '../../store/hooks';
@@ -66,7 +66,9 @@ export const RecipePage: React.FC = () => {
                 <Typography className={classes.title} variant="inherit" component="h2">
                     {recipe.selectedItem.isLoading ? <Skeleton /> : recipe.selectedItem.item.title}
                 </Typography>
-                <Text>{recipe.selectedItem.item.description}</Text>
+                <Typography variant="inherit" component="h6">
+                    {recipe.selectedItem.item.description}
+                </Typography>
                 <View className={classes.infoLabel}>
                     {
                         <СomplexityOfRecipes
@@ -104,7 +106,9 @@ export const RecipePage: React.FC = () => {
                         {recipe.selectedItem.item.instructions.map((item, index) => (
                             <View className={classes.countBullet}>
                                 <CountBullet className={classes.text} count={index + 1} />
-                                <Text>{item}</Text>
+                                <Typography variant="inherit" component="h6">
+                                    {item}
+                                </Typography>
                             </View>
                         ))}
                     </View>
