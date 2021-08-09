@@ -11,7 +11,8 @@ import { MainRoutes } from '../../navigation/routes';
 
 const useStyles = makeStyles({
     container: {
-        paddingTop: 635,
+        // paddingTop: 635,
+        paddingTop: 0,
         paddingLeft: 2,
         paddingRight: 2,
     },

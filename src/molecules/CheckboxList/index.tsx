@@ -1,8 +1,9 @@
 import React from 'react';
 import CSS from 'csstype';
-import { Checkbox, createStyles, FormControlLabel, FormGroup, makeStyles } from '@material-ui/core';
+import { FormGroup } from '@material-ui/core';
 
 import { Options } from '../../store/recipes/types';
+import { Checkbox } from '../../atoms';
 
 interface CheckboxListProps {
     handleOptions: (id: number, isSelected: boolean) => void;
@@ -11,29 +12,22 @@ interface CheckboxListProps {
     options: Options[];
 }
 
-const useStyles = makeStyles(() =>
-    createStyles({
-        formContainer: {
-            justifyContent: 'space-between',
-        },
-    }),
-);
 export const CheckboxList: React.FC<CheckboxListProps> = ({ handleOptions, options }) => {
-    const classes = useStyles();
-
     return (
         <FormGroup>
             {options.map((item) => {
                 const toggle = () => handleOptions(item.id, item.isSelected);
                 return (
-                    <FormControlLabel
+                    <Checkbox
                         key={item.id}
                         labelPlacement="start"
-                        className={classes.formContainer}
-                        control={
-                            <Checkbox color="default" checked={item.isSelected} onChange={toggle} name="checkedA" />
-                        }
-                        label={item.title}
+                        textLabel={item.title}
+                        checkboxPropsUI={{
+                            onChange: toggle,
+                            color: 'default',
+                            checked: item.isSelected,
+                            name: `Checkbox–${item.id}`,
+                        }}
                     />
                 );
             })}

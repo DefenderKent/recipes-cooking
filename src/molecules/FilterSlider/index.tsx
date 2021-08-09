@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Colors } from '../../style/paletteOptions';
+import { View } from '../../templates';
 
 interface RangeSliderProps {
     handleSlider: (range: number[]) => void;
@@ -14,6 +15,10 @@ const useStyles = makeStyles({
     root: {},
     slider: {
         color: Colors.shade50,
+    },
+    sliderContainer: {
+        paddingTop: 55,
+        marginBottom: 40,
     },
 });
 
@@ -29,7 +34,7 @@ export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider, startRan
     };
 
     return (
-        <div className={classes.root}>
+        <View display="block" className={classes.sliderContainer}>
             <Slider
                 min={startRange[0]}
                 max={startRange[1]}
@@ -41,9 +46,9 @@ export const RangeSlider: React.FC<RangeSliderProps> = ({ handleSlider, startRan
                 getAriaValueText={valuetext}
                 className={classes.slider}
             />
-            <Typography id="range-slider" gutterBottom>
+            <Typography id="range-slider" gutterBottom variant="subtitle1">
                 Calories, kCal
             </Typography>
-        </div>
+        </View>
     );
 };

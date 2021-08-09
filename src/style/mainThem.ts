@@ -6,7 +6,7 @@ export const theme = createTheme({
     typography,
     palette,
     props: {
-        MuiButtonBase: {},
+        MuiIconButton: {},
         MuiTypography: {
             variantMapping: {
                 body1: 'span',

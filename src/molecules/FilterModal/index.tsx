@@ -29,12 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
             top: 0,
             bottom: 0,
         },
-        buttonContainer: {},
-
-        sliderContainer: {
-            paddingTop: 40,
-            marginBottom: 40,
+        buttonContainer: {
+            flexGrow: 1,
         },
+        title: { marginBottom: 6 },
         button: {
             '&:hover, &:focus': {
                 backgroundColor: Colors.shade50,
@@ -84,19 +82,15 @@ export const FilterModal: React.FC<FilterModalProps> = ({
             aria-describedby="simple-modal-description"
         >
             <div className={classes.paper}>
-                <Typography variant="h3" component="h3">
+                <Typography variant="h3" component="h3" className={classes.title}>
                     Filter
                 </Typography>
                 <CheckboxList handleOptions={handleOptions} options={options} />
-                <View display="block" className={classes.sliderContainer}>
-                    <RangeSlider
-                        handleSlider={handleCalorieRange}
-                        startRange={startRange}
-                        calorieRange={calorieRange}
-                    />
-                </View>
-                <View className={classes.buttonContainer} justify="space-between">
-                    <Button variant="outlined" onClick={onClear} color="primary">
+
+                <RangeSlider handleSlider={handleCalorieRange} startRange={startRange} calorieRange={calorieRange} />
+
+                <View className={classes.buttonContainer} justify="space-between" aligan="flex-end">
+                    <Button variant="outlined" className={classes.button} onClick={onClear}>
                         Clear
                     </Button>
                     <Button className={classes.button} variant="outlined" onClick={onPress}>

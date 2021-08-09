@@ -9,6 +9,7 @@ export enum Colors {
     medium = '#EB8A31',
     hard = '#EB3C31',
     grey = '#C8C8C8',
+    grey2 = 'rgba(33,33,33,0.08)',
 }
 export const palette: PaletteOptions = {
     primary: {

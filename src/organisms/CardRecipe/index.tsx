@@ -58,7 +58,7 @@ export const CardRecipe: React.FC<CardRecipeProps> = ({ title, supTitle, image, 
                         <Typography variant="h3" component="h3">
                             {title}
                         </Typography>
-                        <Typography variant="inherit" component="h6">
+                        <Typography variant="subtitle1" component="span">
                             {supTitle}
                         </Typography>
                     </CardContent>
