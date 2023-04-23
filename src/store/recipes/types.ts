@@ -1,4 +1,4 @@
-import { Cuisine, Recipe, RecipeShort } from '../../api/types';
+import { Cuisine, IRecipe, RecipeShort } from '../../api/types';
 
 export interface Options extends Cuisine {
     isSelected: boolean;
@@ -13,7 +13,7 @@ export type RecipesState = {
         isLoading: boolean;
     };
     selectedItem: {
-        item: Recipe;
+        item: IRecipe;
         isLoading: boolean;
     };
 };

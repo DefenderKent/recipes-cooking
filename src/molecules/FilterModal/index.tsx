@@ -1,14 +1,14 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, IconButton, Typography } from '@material-ui/core';
+import {Button, IconButton, Typography} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { CheckboxList } from '..';
-import { RangeSlider } from '../FilterSlider';
-import { View } from '../../templates';
-import { Colors } from '../../style/paletteOptions';
-import { Options } from '../../store/recipes/types';
+import {CheckboxList} from '..';
+import {RangeSlider} from '../FilterSlider';
+import {Colors} from '../../style/paletteOptions';
+import {useFilterRecipeStore} from "../../features/Recipe/hooks";
+import {useForm} from "react-hook-form";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         buttonContainer: {
             flexGrow: 1,
         },
-        title: { marginBottom: 6 },
+        title: {marginBottom: 6},
         button: {
             '&:hover, &:focus': {
                 backgroundColor: Colors.shade50,
@@ -49,31 +49,30 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
 interface FilterModalProps {
-    options: Options[];
-    handleCalorieRange: (range: number[]) => void;
-    handleOptions: (id: number, isSelected: boolean) => void;
-    calorieRange: number[];
-    startRange: number[];
     isVisible: boolean;
     onToggle: () => void;
-    filterRecipe: (range: number[]) => void;
-    onClear: () => void;
 }
 
 export const FilterModal: React.FC<FilterModalProps> = ({
-    isVisible,
-    onToggle,
-    calorieRange,
-    startRange,
-    options,
-    handleOptions,
-    handleCalorieRange,
-    filterRecipe,
-    onClear,
-}) => {
+                                                            isVisible,
+                                                            onToggle,
+                                                        }) => {
     const classes = useStyles();
-    const onPress = () => filterRecipe(calorieRange);
+    const {options, fetchFilters, isLoading} = useFilterRecipeStore()
+    const {control, handleSubmit,setValue} = useForm({
+        defaultValues: {
+            caloricity: options?.caloricityRange,
+            cuisines: [],
+        }
+    });
+    const onPress = (data: any) => {
+        console.debug("data11:", data)
+    };
+    React.useEffect(() => {
+        fetchFilters();
+    }, [fetchFilters])
     return (
         <Modal
             open={isVisible}
@@ -81,26 +80,30 @@ export const FilterModal: React.FC<FilterModalProps> = ({
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
-            <div className={classes.paper}>
-                <Typography variant="h3" component="h3" className={classes.title}>
-                    Filter
-                </Typography>
-                <CheckboxList handleOptions={handleOptions} options={options} />
+            <form onSubmit={handleSubmit(onPress)}>
+                <div className={classes.paper}>
+                    {isLoading && "Loading..."}
+                    <Typography variant="h3" component="h3" className={classes.title}>
+                        Filter
+                    </Typography>
+                    <CheckboxList setValue={setValue} control={control} options={options?.cuisines}/>
 
-                <RangeSlider handleSlider={handleCalorieRange} startRange={startRange} calorieRange={calorieRange} />
+                    {options?.caloricityRange &&
+                        <RangeSlider control={control} caloricityRange={options.caloricityRange}/>}
 
-                <View className={classes.buttonContainer} justify="space-between" aligan="flex-end">
-                    <Button variant="outlined" className={classes.button} onClick={onClear}>
-                        Clear
-                    </Button>
-                    <Button className={classes.button} variant="outlined" onClick={onPress}>
-                        Show Recipes
-                    </Button>
-                </View>
-                <IconButton aria-label="CloseIcon" onClick={onToggle} color="inherit" className={classes.close}>
-                    <CloseIcon />
-                </IconButton>
-            </div>
+                    <div className={classes.buttonContainer}>
+                        <Button variant="outlined" className={classes.button} onClick={() => ({})}>
+                            Clear
+                        </Button>
+                        <Button className={classes.button} variant="outlined" onClick={handleSubmit(onPress)}>
+                            Show Recipes
+                        </Button>
+                    </div>
+                    <IconButton aria-label="CloseIcon" onClick={onToggle} color="inherit" className={classes.close}>
+                        <CloseIcon/>
+                    </IconButton>
+                </div>
+            </form>
         </Modal>
     );
 };

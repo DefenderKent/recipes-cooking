@@ -1,6 +1,16 @@
 import React from 'react';
 
-import { AppRouter } from './templates/AppRouter';
+import {Redirect, Route, Switch} from "react-router-dom";
+import {mainRoutes} from "./services/routes";
 
-const App = () => <AppRouter />;
+const App = () =>
+    (
+        <Switch>
+            {mainRoutes.map(({path, Component}, index) => (
+                <Route key={`${path + index}`} path={path} component={Component} exact/>
+            ))}
+            <Redirect to="/"/>
+        </Switch>
+    );
+
 export default App;

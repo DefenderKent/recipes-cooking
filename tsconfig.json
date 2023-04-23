@@ -18,8 +18,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "typeRoots": [
+      "config/@types",
+      "node_modules/@types"
+    ]
   },
+  "exclude": [
+    "node_modules",
+    "build",
+    "public"
+  ],
   "include": [
     "src"
   ]

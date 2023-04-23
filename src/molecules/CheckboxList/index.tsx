@@ -1,34 +1,57 @@
 import React from 'react';
 import CSS from 'csstype';
-import { FormGroup } from '@material-ui/core';
+import {FormGroup} from '@material-ui/core';
+import {Checkbox} from 'src/components';
+import {Cuisine} from "../../api/types";
+import {Controller} from "react-hook-form";
 
-import { Options } from '../../store/recipes/types';
-import { Checkbox } from '../../atoms';
 
 interface CheckboxListProps {
-    handleOptions: (id: number, isSelected: boolean) => void;
     style?: CSS.Properties;
     className?: string;
-    options: Options[];
+    options?: Cuisine[];
+    control: any
+    setValue:any
 }
 
-export const CheckboxList: React.FC<CheckboxListProps> = ({ handleOptions, options }) => {
+export const CheckboxList: React.FC<CheckboxListProps> = ({control, options}) => {
+    const [value, setValue] = React.useState(options?.map(s=>s.id)||[]);
     return (
+
+
         <FormGroup>
-            {options.map((item) => {
-                const toggle = () => handleOptions(item.id, item.isSelected);
+            {options?.map((item,index) => {
+
                 return (
-                    <Checkbox
-                        key={item.id}
-                        labelPlacement="start"
-                        textLabel={item.title}
-                        checkboxPropsUI={{
-                            onChange: toggle,
-                            color: 'default',
-                            checked: item.isSelected,
-                            name: `Checkbox–${item.id}`,
-                        }}
-                    />
+                    <Controller name={'cuisines'} control={control} key={item.id}
+                                render={({
+                                             field: {
+                                                 onChange,
+
+                                             }
+                                         }) => {
+                                    return <Checkbox
+
+                                        labelPlacement="start"
+                                        textLabel={item.title}
+                                        checkboxPropsUI={{
+                                            color: 'default',
+                                            value:item.id,
+                                            onChange:(e)=>{
+                                                const valueCopy = [...value];
+                                                valueCopy[index] = e.target.checked ? +e.target.value : 0;
+
+                                                // send data to react hook form
+                                                onChange(valueCopy);
+
+                                                // update local state
+                                                setValue(valueCopy);
+                                            },
+                                            // checked: item.isSelected
+                                        }}
+                                    />
+                                }}/>
+
                 );
             })}
         </FormGroup>

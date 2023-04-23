@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getRecipe, getRecipes } from '../../api/recipes';
+import Api from '../../api';
 import { RootState } from '../types';
 import { RecipesState } from './types';
 
-export const receiveRecipes = createAsyncThunk('recipes/getRecipes', async () => {
-    const { data } = await getRecipes();
-    console.log('reciveRecipes:Data', data);
-    return data.recipes;
+export const receiveRecipes = createAsyncThunk('RecipesApi/getRecipes', async () => {
+    const recipes = await Api.instance.recipes.getRecipes()
+    console.log('reciveRecipes:Data', recipes);
+    return  recipes
 });
-export const receiveRecipe = createAsyncThunk('recipes/getRecipe', async (recipeID: number) => {
-    const { data } = await getRecipe(recipeID);
-    return data.recipe;
+export const receiveRecipe = createAsyncThunk('RecipesApi/getRecipe', async (recipeID: number) => {
+    const recipe  = await  Api.instance.recipes.getRecipe(recipeID)
+    return recipe;
 });
 const initialState: RecipesState = {
     allItems: {
@@ -90,25 +90,10 @@ const recipesSlice = createSlice({
                 state.allItems.isLoading = true;
             })
             .addCase(receiveRecipes.fulfilled, (state, action) => {
-                state.allItems.filterItems = action.payload;
-                state.allItems.items = action.payload;
-                (state.allItems.filters = action.payload
-                    .map((item) => {
-                        return { ...item.cuisine, isSelected: true };
-                    })
-                    .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)),
-                    (state.allItems.isLoading = false);
-                state.allItems.startRange = [
-                    Math.min.apply(
-                        null,
-                        action.payload.map((item) => item.caloricity),
-                    ),
-                    Math.max.apply(
-                        null,
-                        action.payload.map((item) => item.caloricity),
-                    ),
-                ];
-                state.allItems.calorieRange = state.allItems.startRange;
+                state.allItems
+                console.debug("action",action.payload)
+
+
             })
             .addCase(receiveRecipe.pending, (state) => {
                 state.selectedItem.isLoading = true;

@@ -1,0 +1,62 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Пирог",
+      "description": "Очень вкусный с рыбой",
+      "caloricity": 500,
+      "thumbnail": "https://woololo.com/files/qSMp8GHxKqMiyyFvkA38b0cd7_page_960/qSMp8GHxKqMiyyFvkA38b0cd7.jpg",
+      "images": [
+        "https://woololo.com/files/qSMp8GHxKqMiyyFvkA38b0cd7_page_960/qSMp8GHxKqMiyyFvkA38b0cd7.jpg"
+      ],
+      "cuisine": {
+        "id": 2,
+        "title": "Восточная"
+      },
+      "cookTime": 600,
+      "difficulty": "ingredients",
+      "ingredients": [
+        "Тесто",
+        "Джем"
+      ],
+      "instructions": [
+        "Готовить"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Булочка",
+      "description": "Булочка очень вкусный с рыбой",
+      "caloricity": 1000,
+      "thumbnail": "https://woololo.com/files/qSMp8GHxKqMiyyFvkA38b0cd7_page_960/qSMp8GHxKqMiyyFvkA38b0cd7.jpg",
+      "images": [
+        "https://woololo.com/files/qSMp8GHxKqMiyyFvkA38b0cd7_page_960/qSMp8GHxKqMiyyFvkA38b0cd7.jpg"
+      ],
+      "cuisine": {
+        "id": 1,
+        "title": "Русская"
+      },
+      "cookTime": 300,
+      "difficulty": "easy",
+      "ingredients": [
+        "Тесто",
+        "Джем",
+        "Посыпка"
+      ],
+      "instructions": [
+        "Готовить",
+        "Запекать"
+      ]
+    }
+  ],
+  "getFilter": {
+    "cuisines":[{
+      "id": 1,
+      "title": "Русская"
+    },{
+      "id": 2,
+      "title": "Восточная"
+    }],
+    "caloricityRange": [500,1000]
+  }
+}

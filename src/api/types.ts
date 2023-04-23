@@ -5,7 +5,7 @@ export interface Cuisine {
     title: string;
 }
 
-export interface Recipe {
+export interface IRecipe {
     id: number;
     title: string;
     description: string;
@@ -19,12 +19,10 @@ export interface Recipe {
     instructions: string[];
 }
 
-export interface RootObject {
-    recipe: Recipe;
-}
 
-export type RecipeShort = Omit<Recipe, 'difficulty' | 'ingredients' | 'instructions'>;
+export type RecipeShort = Omit<IRecipe, 'difficulty' | 'ingredients' | 'instructions'>;
 
-export interface RecipeShortObject {
-    recipes: RecipeShort[];
+export interface IGetFilters {
+    cuisines:Cuisine[],
+    caloricityRange:number[]
 }

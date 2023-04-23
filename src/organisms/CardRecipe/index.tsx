@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 // @ts-expect-error Does not have Typescript support
 import Fade from 'react-reveal/Fade';
 import { RecipeCell } from '../../molecules';
-import { View } from '../../templates';
+
 
 interface CardRecipeProps {
     title: string;
@@ -48,11 +48,11 @@ export const CardRecipe: React.FC<CardRecipeProps> = ({ title, supTitle, image, 
             <Fade>
                 <CardActionArea>
                     <CardMedia image={image} title="Image of a dish" className={classes.media}>
-                        <View className={classes.recipeCellContainer}>
+                        <div className={classes.recipeCellContainer}>
                             {tag.map((item, index) => (
                                 <RecipeCell key={`${index + item}`} text={item} className={classes.tag} />
                             ))}
-                        </View>
+                        </div>
                     </CardMedia>
                     <CardContent className={classes.textContainer}>
                         <Typography variant="h3" component="h3">
