@@ -1,5 +1,10 @@
-import RecipesApi from "./RecipesApi";
-
+import { createEffect } from 'effector';
+import RecipesApi from './recipes-api';
+import { IRecipe } from './types';
+/**
+ * Get singleton Api instance
+ * @returns {Api}
+ */
 export default class Api {
     public static get instance(): Api {
         this._instance = this._instance || new Api();
@@ -7,5 +12,5 @@ export default class Api {
     }
     private static _instance: Api;
 
-    recipes = new RecipesApi()
+    recipes: RecipesApi = new RecipesApi();
 }

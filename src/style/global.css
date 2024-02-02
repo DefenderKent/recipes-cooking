@@ -1,0 +1,8 @@
+.ck-editor__editable_inline {
+    height: 200px !important;
+}
+
+/* Set the width of the editor */
+.ck.ck-editor {
+   width: 500px !important;
+}

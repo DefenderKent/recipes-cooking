@@ -19,10 +19,11 @@ export interface IRecipe {
     instructions: string[];
 }
 
-
 export type RecipeShort = Omit<IRecipe, 'difficulty' | 'ingredients' | 'instructions'>;
 
 export interface IGetFilters {
-    cuisines:Cuisine[],
-    caloricityRange:number[]
+    query: string;
+    cuisineId: Cuisine['id'][];
+    caloriesMax: number;
+    caloriesMin: number;
 }

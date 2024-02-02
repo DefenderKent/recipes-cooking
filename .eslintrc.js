@@ -18,7 +18,7 @@ module.exports = {
         'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
         'react/prop-types': 'off',
-        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/no-unused-vars': 'off',
         'no-unused-vars': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
     },

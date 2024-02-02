@@ -1,8 +1,9 @@
-import { createTheme } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core';
 import { palette } from './paletteOptions';
 import { typography } from './typography';
 
-export const theme = createTheme({
+export const theme = createMuiTheme({
+
     typography,
     palette,
     props: {
@@ -17,7 +18,7 @@ export const theme = createTheme({
     overrides: {
         MuiCssBaseline: {
             '@global': {
-                html: { margin: 0, padding: 0, boxSizing: 'border-box' },
+                html: { margin: 0, padding: '0px 96px', boxSizing: 'border-box' },
                 a: { textDecoration: 'none' },
             },
         },
