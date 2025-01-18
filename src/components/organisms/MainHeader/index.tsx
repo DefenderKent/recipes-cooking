@@ -71,3 +71,6 @@
 //         </div>
 //     );
 // };
+const MainHeader = () => {
+    return <div>sadasd</div>;
+};
